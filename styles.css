@@ -1,0 +1,25 @@
+.container{
+  border: solid blue;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  align-content: center;
+  /*width: 100vw;
+  height: 100vh;*/
+}
+
+.gameBox{ /* 20x19 */
+  height: 400px;
+  width: 380px;
+  border: solid red;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.gameBox div{
+  width: 20px;
+  height: 20px;
+}
+
+
