@@ -2,7 +2,7 @@
 
 let grid = document.querySelector('.gameBox');
 let playerIndex = 351; //Starting position of player
-let blasterIndex; //Spot where fired shot will move
+let blasterIndex = playerIndex - 19; // Spot where fired shot will move
 let moveDownRight = true;
 let moveDownLeft = true;
 
@@ -28,38 +28,28 @@ function makeEm() {
   }
 }
 
+let deadBaddies = [];
 let leftSide = spots[0] % 19 === 0;
 let rightSide = spots[10] % 19 === 18;
 let dirCount = 1;
-
-window.addEventListener('keydown', (e) => {
-  if (e.keyCode === 37 && playerIndex > 342) {
+document.addEventListener('keydown', (e) => {
+  if (e.code === 'ArrowLeft' && playerIndex > 342) {
     allDivs[playerIndex].classList.remove('playerUn');
     playerIndex--;
     allDivs[playerIndex].classList.add('playerUn');
-  } else if (e.keyCode === 39 && playerIndex < 360) {
+  } else if (e.code === 'ArrowRight' && playerIndex < 360) {
     allDivs[playerIndex].classList.remove('playerUn');
     playerIndex++;
     allDivs[playerIndex].classList.add('playerUn');
+  } else if (e.code === 'Space' || e.code === 'ArrowUp') {
+    shootEmDown();
   }
 })
-
-// function moveBaddies() {
-//   //console.log(spots[0]);
-//   while (allDivs[0] != 0) {
-//     if (allDivs[0] % 19 != 0) {
-//       for (let i = 0; i < spots.length; i++) {
-//         spots[i]--;
-//       }
-//     }
-//   }
-// }
-
-//setInterval(moveBaddies, 1000);
 
 function moveBaddies() {
   makeEm();
 
+  //Move down when right edge hit
   if (spots[10] % 19 === 18 && moveDownRight) {
     for (let i = 0; i < spots.length; i++) {
       allDivs[spots[i]].classList.remove('nondescriptLifeform');
@@ -70,6 +60,7 @@ function moveBaddies() {
     }
   }
 
+  //move down when left edge hit
   if (spots[0] % 19 === 0 && moveDownLeft) {
     for (let i = 0; i < spots.length; i++) {
       allDivs[spots[i]].classList.remove('nondescriptLifeform');
@@ -80,6 +71,7 @@ function moveBaddies() {
     }
   }
 
+  //determines movement direction of baddies
   for (let i = 0; i < spots.length; i++) {
     allDivs[spots[i]].classList.remove('nondescriptLifeform');
     if (dirCount === 1) {
@@ -97,6 +89,28 @@ function moveBaddies() {
       moveDownRight = true;
     }
   }
+
+  //Game Over if player hit
+  if (allDivs[playerIndex].classList.contains('playerUn' && 'nondescriptLifeform')) {
+    console.log('Game Over');
+    clearInterval(runGame);
+  }
 }
 
-setInterval(moveBaddies, 500);
+function shootEmDown() {
+  let laserId = setInterval(moveBlaster, 500)
+  let currentBlaster = playerIndex;
+  function moveBlaster() {
+    allDivs[currentBlaster].classList.remove('pewpew');
+    currentBlaster -= 19;
+    allDivs[currentBlaster].classList.add('pewpew');
+
+    if (allDivs[currentBlaster].classList.contains('pewpew' && 'nondescriptLifeform')) {
+      allDivs[currentBlaster].classList.add('death');
+      allDivs[currentBlaster].classList.remove('pewpew');
+      allDivs[currentBlaster].classList.remove('nondescriptLifeform');
+    }
+  }
+}
+
+let runGame = setInterval(moveBaddies, 500);
