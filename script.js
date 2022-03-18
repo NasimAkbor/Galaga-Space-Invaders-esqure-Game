@@ -5,6 +5,7 @@ let playerIndex = 351; //Starting position of player
 let blasterIndex = playerIndex - 19; // Spot where fired shot will move
 let moveDownRight = true;
 let moveDownLeft = true;
+let deadBaddies = [];
 
 for (let i = 0; i < 380; i++) {
   let boxes = document.createElement('div');
@@ -24,11 +25,11 @@ let spots = [ //Positions within allDivs that I want the aliens to start at. 11x
 ]
 function makeEm() {
   for (let i = 0; i < spots.length; i++) {
-    allDivs[spots[i]].classList.add('nondescriptLifeform');
+    if (!deadBaddies.includes(i))
+      allDivs[spots[i]].classList.add('nondescriptLifeform');
   }
 }
 
-let deadBaddies = [];
 let leftSide = spots[0] % 19 === 0;
 let rightSide = spots[10] % 19 === 18;
 let dirCount = 1;
@@ -98,18 +99,30 @@ function moveBaddies() {
 }
 
 function shootEmDown() {
-  let laserId = setInterval(moveBlaster, 500)
+  let shootingInterval = setInterval(moveBlaster, 300)
   let currentBlaster = playerIndex;
   function moveBlaster() {
     allDivs[currentBlaster].classList.remove('pewpew');
     currentBlaster -= 19;
     allDivs[currentBlaster].classList.add('pewpew');
-
+    if ((currentBlaster - 19) < 0) { //Removes blaster after it hits the top
+      clearInterval(shootingInterval);
+      setTimeout(() => allDivs[currentBlaster].classList.remove('pewpew'), 50)
+    }
     if (allDivs[currentBlaster].classList.contains('pewpew' && 'nondescriptLifeform')) {
       allDivs[currentBlaster].classList.add('death');
       allDivs[currentBlaster].classList.remove('pewpew');
       allDivs[currentBlaster].classList.remove('nondescriptLifeform');
+
+      clearInterval(shootingInterval); //Stops blaster from continuing.
+      setTimeout(() => allDivs[currentBlaster].classList.remove('death'), 100) //Removes death mark.
+
+      let newDeath = spots.indexOf(currentBlaster);
+      console.log(newDeath);
+      deadBaddies.push(newDeath);
+      console.log(deadBaddies);
     }
+
   }
 }
 
