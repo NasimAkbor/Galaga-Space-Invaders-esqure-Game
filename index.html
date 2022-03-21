@@ -18,10 +18,25 @@
   <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
+  <header><img class="logo" src="./media/logo1.png"></header>
   <div class="container">
-    <div class="title">Game that is legally not Space Invaders,
-      but if one stood a distance away and squinted they would say "Oh is that Space Invaders"</div>
-    <div class="gameBox">
+    <!-- <div class="title">Game that is legally not Space Invaders,
+      but if one stood a distance away and squinted they would say "Oh is that Space Invaders"
+    </div> -->
+    <div id="start-screen" class="screen" style="display:block">
+      <button class="start">Start Game</button>
+    </div>
+    <div id="boox" class="gameBox" style="display:none">
+    </div>
+    <div id="game-over" class="screen" style="display:none">
+      <h1 class="gOverText">Game Over</h1>
+    </div>
+    <div id="winner" class="screen" style="display:none">
+      <h1 class="winnerText"> Congratulations! <br> You Won!</h1>
+    </div>
+    <div class="scoreBox">
+      <h1 class="score">Score: </h1>
+      <h1 class="scoreNum">000</h1>
     </div>
   </div>
   <script src="./script.js" async defer></script>

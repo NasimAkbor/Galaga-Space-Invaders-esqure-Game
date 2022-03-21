@@ -1,6 +1,11 @@
 //Code
 
 let grid = document.querySelector('.gameBox');
+let start = document.querySelector('#start-screen');
+let end = document.querySelector('#game-over');
+let win = document.querySelector('#winner');
+let result = document.querySelector('.scoreNum');
+let score = parseInt(result.innerText);
 let playerIndex = 351; //Starting position of player
 let blasterIndex = playerIndex - 19; // Spot where fired shot will move
 let moveDownRight = true;
@@ -15,7 +20,6 @@ for (let i = 0; i < 380; i++) {
 
 let allDivs = document.querySelectorAll('.gameBox div');
 
-allDivs[playerIndex].classList.add('playerUn');
 let spots = [ //Positions within allDivs that I want the aliens to start at. 11x5.
   4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14,
   23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33,
@@ -27,7 +31,9 @@ function makeEm() {
   for (let i = 0; i < spots.length; i++) {
     if (!deadBaddies.includes(i))
       allDivs[spots[i]].classList.add('nondescriptLifeform');
+
   }
+  allDivs[playerIndex].classList.add('playerUn');
 }
 
 let leftSide = spots[0] % 19 === 0;
@@ -43,7 +49,7 @@ document.addEventListener('keydown', (e) => {
     playerIndex++;
     allDivs[playerIndex].classList.add('playerUn');
   } else if (e.code === 'Space' || e.code === 'ArrowUp') {
-    shootEmDown();
+    setTimeout(shootEmDown(), 2000);
   }
 })
 
@@ -95,10 +101,19 @@ function moveBaddies() {
   if (allDivs[playerIndex].classList.contains('playerUn' && 'nondescriptLifeform')) {
     console.log('Game Over');
     clearInterval(runGame);
+    grid.style.display = 'none';
+    end.style.display = 'flex';
+  }
+
+  if (deadBaddies.length === spots.length) {
+    grid.style.display = 'none';
+    win.style.display = 'flex';
+    clearInterval(runGame);
   }
 }
 
 function shootEmDown() {
+
   let shootingInterval = setInterval(moveBlaster, 300)
   let currentBlaster = playerIndex;
   function moveBlaster() {
@@ -113,6 +128,8 @@ function shootEmDown() {
       allDivs[currentBlaster].classList.add('death');
       allDivs[currentBlaster].classList.remove('pewpew');
       allDivs[currentBlaster].classList.remove('nondescriptLifeform');
+      score += 10;
+      result.innerText = score;
 
       clearInterval(shootingInterval); //Stops blaster from continuing.
       setTimeout(() => allDivs[currentBlaster].classList.remove('death'), 100) //Removes death mark.
@@ -126,4 +143,13 @@ function shootEmDown() {
   }
 }
 
-let runGame = setInterval(moveBaddies, 500);
+let runGame;
+
+function startGame() {
+  start.style.display = 'none';
+  grid.style.display = 'flex';
+  runGame = setInterval(moveBaddies, 500);
+}
+
+start.addEventListener('click', startGame);
+

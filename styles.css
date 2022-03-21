@@ -1,12 +1,10 @@
 .container{
-  border: solid blue;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
   align-content: center;
-  /*width: 100vw;
-  height: 100vh;*/
+  background-color: rgba(73,96,166,255);
 }
 
 .gameBox{ /* 20x19 */
@@ -26,6 +24,8 @@
   background-color: aquamarine;
 }
 
+
+
 .nondescriptLifeform {
   background-color: darkorchid;
   border-radius: 50em;
@@ -37,4 +37,27 @@
 
 .death{
   background-color: black;
+}
+
+.screen {
+  width: 400px;
+  height: 380px;
+  background-color: black;
+  color: white;
+  align-items: center;
+  justify-content: center;
+}
+
+.score, .scoreNum{
+  display: inline-block;
+}
+
+header{
+  display: flex;
+  justify-content: center;
+  background-color: rgba(73,96,166,255);
+}
+
+img{
+  height: 321px;
 }
