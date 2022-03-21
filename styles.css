@@ -5,12 +5,13 @@
   align-items: center;
   align-content: center;
   background-color: rgba(73,96,166,255);
+  font-family: 'Roboto', sans-serif;
 }
 
 .gameBox{ /* 20x19 */
   height: 400px;
   width: 380px;
-  border: solid red;
+  border: solid #f0aa84;
   display: flex;
   flex-wrap: wrap;
 }
@@ -21,18 +22,20 @@
 }
 
 .playerUn{
-  background-color: aquamarine;
+  background-color: #84f0aa;
 }
 
-
-
 .nondescriptLifeform {
-  background-color: darkorchid;
-  border-radius: 50em;
+  background-color: #aa84f0;
+  border-radius: 50%;
 }
 
 .pewpew{
   background-color: red;
+}
+
+.enemypewpew{
+  background-color: #e084f0;
 }
 
 .death{
@@ -40,24 +43,61 @@
 }
 
 .screen {
-  width: 400px;
-  height: 380px;
+  height: 400px;
+  width: 380px;
+  display: flex;
+  flex-direction: column;
   background-color: black;
   color: white;
   align-items: center;
   justify-content: center;
 }
 
+button{
+  font-size: 16px;
+}
+
 .score, .scoreNum{
   display: inline-block;
+  color: rgba(246,175,132,255);
 }
 
 header{
   display: flex;
+  height: 280px;
   justify-content: center;
   background-color: rgba(73,96,166,255);
 }
 
 img{
   height: 321px;
+}
+
+kbd {
+  border-radius: 3px;
+  padding: 1px 2px 0;
+  border: 1px solid black;
+}
+
+.instructions{
+  height: 70px;
+}
+
+.alert{
+  display:none;
+}
+
+
+@media (max-width: 1024px) {
+  .container{
+    display: none;
+  }
+  .alert{
+    display: flex;
+    font-size: 55px;
+  }
+  body{
+    background-color: red;
+    color: black;
+  }
 }
