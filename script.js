@@ -30,6 +30,7 @@ let spots = [ //Positions within allDivs that I want the aliens to start at. 11x
   61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71,
   80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90
 ]
+
 //Function to draw in the aliens.
 function makeEm() {
   for (let i = 0; i < spots.length; i++) {
@@ -144,7 +145,7 @@ function shootEmDown() {
       clearInterval(shootingInterval);
       setTimeout(() => allDivs[currentBlaster].classList.remove('pewpew'), 50)
     }
-    //When blaster hits a alien it removes the alien&blaster
+    //When blaster hits an alien it removes the alien&blaster
     if (allDivs[currentBlaster].classList.contains('pewpew' && 'nondescriptLifeform')) {
       allDivs[currentBlaster].classList.add('death');
       allDivs[currentBlaster].classList.remove('pewpew');
